@@ -2,8 +2,8 @@
 
 > **AICore Connect Hackathon | UnsaidTalks | Submission Deadline: 26 April 2026**
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Click_Here-4F46E5?style=for-the-badge)](https://campusconnect.vercel.app)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Public_Repo-181717?style=for-the-badge&logo=github)](https://github.com/YOUR_USERNAME/campusconnect)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Click_Here-4F46E5?style=for-the-badge)](https://campusconnect-tau-lac.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Public_Repo-181717?style=for-the-badge&logo=github)](https://github.com/Piyusha942007/CampusConnect)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 ---
@@ -12,9 +12,9 @@
 
 > **Click the thumbnail below to watch the full walkthrough (hosted on Google Drive)**
 
-[![CampusConnect Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID/view)
+[![CampusConnect Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1tzdLxgNcgoukVoa2PV6U2161oUW9Ekqp/view?usp=sharing)
 
-> 📁 **Google Drive Folder (Proof Storage Demo):** [View Shared Folder](https://drive.google.com/drive/folders/YOUR_FOLDER_ID)
+> 📁 **Google Drive Folder (Proof Storage Demo):** [View Shared Folder](https://drive.google.com/drive/folders/1BvWrpCeGvm-dPfJv7gSln4LeecaXCXYh)
 
 _The screen recording demonstrates: Organization setup → Ambassador onboarding → Task creation → Proof upload to Google Drive → Leaderboard update → GitHub Profile Analysis._
 
@@ -68,8 +68,8 @@ Backend:   Node.js + Express.js (REST API)
 Database:  MongoDB Atlas
 Auth:      JWT (JSON Web Tokens) + bcrypt
 Storage:   Google Drive API v3 (proof file uploads)
-AI:        Anthropic Claude API (GitHub profile analysis)
-Hosting:   Vercel (frontend) + Railway (backend)
+AI:        Google Gemini API (GitHub profile analysis)
+Hosting:   Vercel Serverless (Frontend & Backend APIs)
 ```
 
 ---
@@ -86,7 +86,7 @@ Hosting:   Vercel (frontend) + Railway (backend)
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/campusconnect.git
+git clone https://github.com/Piyusha942007/CampusConnect.git
 cd campusconnect
 ```
 
@@ -113,8 +113,8 @@ npm run dev
 ### 4. Open in Browser
 
 ```
-Frontend: http://localhost:5173
-Backend:  http://localhost:5000
+Frontend: https://campusconnect-tau-lac.vercel.app/
+Backend:  https://campus-connect-blond-one.vercel.app/
 ```
 
 ---
@@ -165,12 +165,12 @@ VITE_API_URL=http://localhost:5000
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create a new project → Enable **Google Drive API**
 3. Go to **APIs & Services → Credentials → Create OAuth 2.0 Client ID**
-4. Set Authorized redirect URI to: `https://your-backend.railway.app/api/drive/callback`
+4. Set Authorized redirect URI to: `https://campus-connect-blond-one.vercel.app/oauth2callback` and `https://campus-connect-blond-one.vercel.app/api/auth/google/callback`
 5. Copy `Client ID` and `Client Secret` into your `.env`
 6. When Admin registers and connects Drive, they are prompted to authorize — this creates a shared org folder at: `CampusConnect/{OrgName}/`
 7. All ambassador proof uploads go into: `CampusConnect/{OrgName}/{TaskTitle}/{AmbassadorName}_{timestamp}.ext`
 
-**Demo Google Drive Folder (read-only):** [Click Here](https://drive.google.com/drive/folders/YOUR_DEMO_FOLDER_ID)
+**Demo Google Drive Folder (read-only):** [Click Here](https://drive.google.com/drive/folders/1BvWrpCeGvm-dPfJv7gSln4LeecaXCXYh)
 
 ---
 
@@ -308,29 +308,26 @@ POST   /api/drive/upload        Upload proof file → Drive link
 
 | Criterion | Weight | How We Address It |
 |-----------|--------|-------------------|
-| **Impact** | 20% | GitHub analyzer gives recruiter-readiness report in < 2 min. Solves real CA fragmentation problem. |
-| **Innovation** | 20% | AI-powered GitHub scoring + auto proof verification via Drive API. Unique gamification layer. |
-| **Technical Execution** | 20% | Clean monorepo, proper REST API, JWT auth, Drive integration, AI analysis. This README. |
-| **User Experience** | 25% | **Hosted on Vercel (public URL)**. Responsive Tailwind UI. Clear feedback on every user action. |
-| **Presentation** | 15% | Screen-recording video embedded above. Clear demo flow covering all features. |
+| **Impact** | 20% | GitHub analyzer gives recruiter-readiness report in < 2 min via **Google Gemini AI**. Solves real CA fragmentation problem. |
+| **Innovation** | 20% | AI-powered GitHub scoring + auto proof verification via **Google Drive API (OAuth 2.0)**. Unique gamification layer. |
+| **Technical Execution** | 20% | **Vercel Serverless** architecture with custom **MongoDB connection caching** to prevent timeouts. JWT + Google/GitHub OAuth. |
+| **User Experience** | 25% | **Hosted entirely on Vercel**. Responsive Tailwind UI. Seamless OTP and Social Login flow. |
+| **Presentation** | 15% | Screen-recording video embedded above showcasing the complete Ambassador and Admin workflows. |
 
 ---
 
 ## 🚢 Deployment
 
 ### Frontend (Vercel)
-```bash
-cd client
-vercel --prod
-# Set env var: VITE_API_URL=https://your-backend.railway.app
-```
+Point your Vercel project to the `/client` directory.
+- Root Directory: `client`
+- Set env var: `VITE_API_URL=https://campus-connect-blond-one.vercel.app/api`
 
-### Backend (Railway)
-```bash
-cd server
-railway up
-# Add all .env variables in Railway dashboard
-```
+### Backend (Vercel Serverless)
+Point your Vercel project to the `/server` directory.
+- Root Directory: `server`
+- We use `vercel.json` to handle Express routing.
+- Add all `.env` variables in Vercel dashboard.
 
 ---
 

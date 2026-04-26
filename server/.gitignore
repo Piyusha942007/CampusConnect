@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.test
+.env.production
+
+# Uploads & Temp
+uploads/
+temp/
+tmp/
+
+# Debug & Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test scripts (temporary diagnostics)
+check-db.js
+check-models.js
+check-drive.js
+setup-drive.js
+seed-ambassadors.js
+fix-codes.js

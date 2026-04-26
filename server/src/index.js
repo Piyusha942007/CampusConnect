@@ -12,7 +12,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use('/uploads', express.static(require('path').join(__dirname, '..', 'uploads')));
@@ -33,11 +35,16 @@ app.get('/', (req, res) => {
 
 // Database Connection
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/campusconnect';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    // Only start server if NOT on Vercel (Vercel uses its own listener)
+    if (process.env.NODE_ENV !== 'production') {
+      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    }
   })
   .catch(err => console.error('MongoDB connection error:', err));
+
+module.exports = app;

@@ -9,7 +9,7 @@ const readline = require('readline');
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  'http://localhost:5000/oauth2callback' // Redirect URI (not actually used, we copy the code manually)
+  `${process.env.BACKEND_URL}/oauth2callback` // Redirect URI
 );
 
 // Generate the authorization URL
@@ -26,7 +26,7 @@ console.log('\n2. Sign in with your Google account');
 console.log('3. Click "Allow" to grant Drive access');
 console.log('4. You will be redirected to a page (it may show an error - that\'s OK!)');
 console.log('5. Copy the "code" parameter from the URL bar');
-console.log('   (The URL will look like: http://localhost:5000/oauth2callback?code=THIS_PART&scope=...)');
+console.log(`   (The URL will look like: ${process.env.BACKEND_URL}/oauth2callback?code=THIS_PART&scope=...)`);
 console.log('\n');
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });

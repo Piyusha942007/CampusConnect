@@ -3,6 +3,7 @@
 > **AICore Connect Hackathon | UnsaidTalks | Submission Deadline: 26 April 2026**
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Click_Here-4F46E5?style=for-the-badge)](https://campusconnect-tau-lac.vercel.app/)
+[![Watch Video](https://img.shields.io/badge/▶_Watch_Video-Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1tzdLxgNcgoukVoa2PV6U2161oUW9Ekqp/view?usp=sharing)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Public_Repo-181717?style=for-the-badge&logo=github)](https://github.com/Piyusha942007/CampusConnect)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
@@ -10,7 +11,8 @@
 
 ## 📽️ Demo Video
 
-> **Click the thumbnail below to watch the full walkthrough (hosted on Google Drive)**
+> **Click the thumbnail below to watch the full walkthrough, or use the direct link:**
+> 🔗 **Direct Drive Link:** [https://drive.google.com/file/d/1tzdLxgNcgoukVoa2PV6U2161oUW9Ekqp/view?usp=sharing](https://drive.google.com/file/d/1tzdLxgNcgoukVoa2PV6U2161oUW9Ekqp/view?usp=sharing)
 
 [![CampusConnect Demo Video](https://img.shields.io/badge/▶_Watch_Demo_Video-Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1tzdLxgNcgoukVoa2PV6U2161oUW9Ekqp/view?usp=sharing)
 

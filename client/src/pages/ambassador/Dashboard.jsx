@@ -37,6 +37,7 @@ const Dashboard = () => {
   };
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-indigo-600" size={40} /></div>;
+  if (!stats) return <div className="flex justify-center py-20 text-rose-500 font-bold">Failed to load dashboard. Please try refreshing.</div>;
 
   const { level, progress, nextLevel } = calculateLevel(stats.points);
 

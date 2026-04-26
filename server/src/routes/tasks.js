@@ -8,6 +8,10 @@ const { protect, authorize } = require('../middleware/auth');
 // @desc    Get all tasks for the user's organization
 router.get('/', protect, async (req, res) => {
   try {
+    if (!req.user.orgId) {
+      return res.json([]); // Return empty tasks if user hasn't joined an org yet
+    }
+    
     const query = { orgId: req.user.orgId };
     if (req.user.role === 'ambassador') {
       query.status = 'active';

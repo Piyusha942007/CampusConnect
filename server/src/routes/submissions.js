@@ -10,9 +10,16 @@ const Task = require('../models/Task');
 const User = require('../models/User');
 const Organization = require('../models/Organization');
 
+const os = require('os');
+
 // Use disk storage as a temp holding area before uploading to Drive
-const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+// Vercel's file system is read-only, so we MUST use the /tmp directory in production
+const isVercel = process.env.VERCEL || process.env.NODE_ENV === 'production';
+const uploadsDir = isVercel ? os.tmpdir() : path.join(__dirname, '..', '..', 'uploads');
+
+if (!isVercel && !fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsDir),

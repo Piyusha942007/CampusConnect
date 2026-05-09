@@ -12,7 +12,13 @@ passport.use(new GoogleStrategy({
     try {
       let user = await User.findOne({ googleId: profile.id });
       if (!user) {
-        user = await User.findOne({ email: profile.emails[0].value });
+        const userEmail = profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null;
+        
+        if (!userEmail) {
+          return done(new Error('Google account must have an email address'), null);
+        }
+
+        user = await User.findOne({ email: userEmail });
         if (user) {
           user.googleId = profile.id;
           await user.save();
@@ -20,8 +26,8 @@ passport.use(new GoogleStrategy({
           user = await User.create({
             googleId: profile.id,
             name: profile.displayName,
-            email: profile.emails[0].value,
-            role: 'ambassador', // Default role
+            email: userEmail,
+            role: 'ambassador',
             isVerified: true
           });
         }
@@ -42,8 +48,15 @@ passport.use(new GitHubStrategy({
     try {
       let user = await User.findOne({ githubId: profile.id });
       if (!user) {
-        const email = profile.emails ? profile.emails[0].value : `${profile.username}@github.com`;
-        user = await User.findOne({ email });
+        const userEmail = (profile.emails && profile.emails.length > 0) 
+          ? profile.emails[0].value 
+          : (profile.username ? `${profile.username}@github.com` : null);
+
+        if (!userEmail) {
+          return done(new Error('GitHub account must have an email or username'), null);
+        }
+
+        user = await User.findOne({ email: userEmail });
         if (user) {
           user.githubId = profile.id;
           await user.save();
@@ -51,7 +64,7 @@ passport.use(new GitHubStrategy({
           user = await User.create({
             githubId: profile.id,
             name: profile.displayName || profile.username,
-            email: email,
+            email: userEmail,
             githubUsername: profile.username,
             role: 'ambassador',
             isVerified: true
